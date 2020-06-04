@@ -14,17 +14,22 @@ function LandingPage() {
   const [Skip, setSkip] = useState(0);
   const [Limit, setLimit] = useState(8);
   const [NumHomestaysRetrieved, setNumHomestaysRetrieved] = useState();
-  // const [SearchTerms, setSearchTerms] = useState("");
+  const [SearchTerms, setSearchTerms] = useState("");
 
-  // const [Filters, setFilters] = useState({
-  //   continents: [],
-  //   rate: [],
-  // });
+  const [Filters, setFilters] = useState({
+    continents: [],
+    rate: [],
+  });
+
   const getProducts = (variables) => {
     Axios.post("/api/homestay/getHomestays", variables).then((response) => {
       if (response.data.success) {
-        setHomestays([...Homestays, ...response.data.homestays]);
-        console.log(response.data.homestays);
+        if (variables.loadMore) {
+          setHomestays([...Homestays, ...response.data.homestays]);
+        } else {
+          setHomestays(response.data.homestays);
+        }
+
         setNumHomestaysRetrieved(response.data.numHomestaysRetrieved);
       } else {
         alert("Failed to fetch Homestays");
@@ -47,6 +52,7 @@ function LandingPage() {
     const variables = {
       skip: skip,
       limit: Limit,
+      loadMore: true,
     };
     getProducts(variables);
     setSkip(skip);
@@ -70,58 +76,55 @@ function LandingPage() {
     );
   });
 
-  // const showFilteredResults = (filters) => {
-  //   const variables = {
-  //     skip: 0,
-  //     limit: Limit,
-  //     filters: filters,
-  //   };
-  //   getProducts(variables);
-  //   setSkip(0);
-  // };
+  const showFilteredResults = (filters) => {
+    const variables = {
+      skip: 0,
+      limit: Limit,
+      filters: filters,
+    };
+    getProducts(variables);
+    setSkip(0);
+  };
 
-  // const handlePrice = (value) => {
-  //   const data = price;
-  //   let array = [];
+  const handleRate = (value) => {
+    const data = rate;
+    let array = [];
 
-  //   for (let key in data) {
-  //     if (data[key]._id === parseInt(value, 10)) {
-  //       array = data[key].array;
-  //     }
-  //   }
-  //   console.log("array", array);
-  //   return array;
-  // };
+    for (let key in data) {
+      if (data[key]._id === parseInt(value, 10)) {
+        array = data[key].array;
+      }
+    }
+    return array;
+  };
 
-  // const handleFilters = (filters, category) => {
-  //   const newFilters = { ...Filters };
+  const handleFilters = (filters, category) => {
+    const newFilters = { ...Filters };
 
-  //   newFilters[category] = filters;
+    newFilters[category] = filters;
 
-  //   if (category === "price") {
-  //     let priceValues = handlePrice(filters);
-  //     newFilters[category] = priceValues;
-  //   }
+    if (category === "rate") {
+      let rateValues = handleRate(filters);
+      newFilters[category] = rateValues;
+    }
 
-  //   console.log(newFilters);
+    showFilteredResults(newFilters);
+    setFilters(newFilters);
+  };
 
-  //   showFilteredResults(newFilters);
-  //   setFilters(newFilters);
-  // };
+  const updateSearchTerms = (newSearchTerm) => {
+    const variables = {
+      skip: 0,
+      limit: Limit,
+      filters: Filters,
+      searchTerm: newSearchTerm,
+    };
 
-  // const updateSearchTerms = (newSearchTerm) => {
-  //   const variables = {
-  //     skip: 0,
-  //     limit: Limit,
-  //     filters: Filters,
-  //     searchTerm: newSearchTerm,
-  //   };
+    setSkip(0);
+    setSearchTerms(newSearchTerm);
 
-  //   setSkip(0);
-  //   setSearchTerms(newSearchTerm);
-
-  //   getProducts(variables);
-  // };
+    getProducts(variables);
+  };
 
   return (
     <div style={{ width: "75%", margin: "3rem auto" }}>
@@ -134,20 +137,19 @@ function LandingPage() {
 
       {/* Filter  */}
 
-      {/* <Row gutter={[16, 16]}>
-        <Col lg={12} xs={24}>
-          <CheckBox
-            list={continents}
-            handleFilters={(filters) => handleFilters(filters, "continents")}
-          />
-        </Col>
-        <Col lg={12} xs={24}>
+      <Row gutter={[16, 16]}>
+        <Col lg={12}>
           <RadioBox
-            list={price}
-            handleFilters={(filters) => handleFilters(filters, "price")}
+            list={rate}
+            handleFilters={(filters) => handleFilters(filters, "rate")}
           />
         </Col>
-      </Row> */}
+        <Col lg={12}>
+          <div style={{ margin: "1rem auto" }}>
+            <SearchFeature refreshFunction={updateSearchTerms} />
+          </div>
+        </Col>
+      </Row>
 
       {/* Search  */}
       {/* <div
@@ -163,13 +165,11 @@ function LandingPage() {
       {Homestays.length === 0 ? (
         <div
           style={{
-            display: "flex",
             height: "300px",
-            justifyContent: "center",
-            alignItems: "center",
+            textAlign: "center",
           }}
         >
-          <h2>No post yet...</h2>
+          <h2 style={{ paddingTop: "150px" }}>No Homestays yet...</h2>
         </div>
       ) : (
         <div>
