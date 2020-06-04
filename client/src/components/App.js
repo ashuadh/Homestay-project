@@ -29,7 +29,7 @@ function App() {
           />
           <Route
             exact
-            path="/product/:productId"
+            path="/homestay/:homestayId"
             component={Auth(DetailProductPage, null)}
           />
           <Route exact path="/user/cart" component={Auth(CartPage, true)} />
