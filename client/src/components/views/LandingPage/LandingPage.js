@@ -1,198 +1,123 @@
-import React, { useEffect, useState } from "react";
-import Axios from "axios";
-import { Icon, Col, Card, Row } from "antd";
-import ImageSlider from "../../utils/ImageSlider";
-import CheckBox from "./Sections/CheckBox";
-import RadioBox from "./Sections/RadioBox";
-import { continents, price } from "./Sections/Datas";
-import SearchFeature from "./Sections/SearchFeature";
+import React from "react";
+import { useState, useEffect } from "react";
+import { Icon } from "antd";
+import "./LandingPage.css";
 
-const { Meta } = Card;
+const LandingPage = () => {
+  // const [curr, setCurr] = useState(0);
+  let curr = 0;
 
-function LandingPage() {
-  const [Products, setProducts] = useState([]);
-  const [Skip, setSkip] = useState(0);
-  const [Limit, setLimit] = useState(8);
-  const [PostSize, setPostSize] = useState();
-  const [SearchTerms, setSearchTerms] = useState("");
+  // useEffect(() => {
+  //   const interval = setInterval(nextSlide, 5000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
-  const [Filters, setFilters] = useState({
-    continents: [],
-    price: [],
-  });
-
-  useEffect(() => {
-    const variables = {
-      skip: Skip,
-      limit: Limit,
-    };
-
-    getProducts(variables);
-  }, []);
-
-  const getProducts = (variables) => {
-    Axios.post("/api/product/getProducts", variables).then((response) => {
-      if (response.data.success) {
-        if (variables.loadMore) {
-          setProducts([...Products, ...response.data.products]);
-        } else {
-          setProducts(response.data.products);
-        }
-        setPostSize(response.data.postSize);
-      } else {
-        alert("Failed to fectch product datas");
-      }
-    });
+  const nextSlide = () => {
+    const slides = document.querySelectorAll(".slide");
+    const current = document.querySelector(".current");
+    current.classList.remove("current");
+    slides[(curr + 1) % slides.length].classList.add("current");
+    curr = (curr + 1) % slides.length;
   };
 
-  const onLoadMore = () => {
-    let skip = Skip + Limit;
-
-    const variables = {
-      skip: skip,
-      limit: Limit,
-      loadMore: true,
-      filters: Filters,
-      searchTerm: SearchTerms,
-    };
-    getProducts(variables);
-    setSkip(skip);
-  };
-
-  const renderCards = Products.map((product, index) => {
-    return (
-      <Col lg={6} md={8} xs={24}>
-        <Card
-          hoverable={true}
-          cover={
-            <a href={`/product/${product._id}`}>
-              {" "}
-              <ImageSlider images={product.images} />
-            </a>
-          }
-        >
-          <Meta title={product.title} description={`$${product.price}`} />
-        </Card>
-      </Col>
-    );
-  });
-
-  const showFilteredResults = (filters) => {
-    const variables = {
-      skip: 0,
-      limit: Limit,
-      filters: filters,
-    };
-    getProducts(variables);
-    setSkip(0);
-  };
-
-  const handlePrice = (value) => {
-    const data = price;
-    let array = [];
-
-    for (let key in data) {
-      if (data[key]._id === parseInt(value, 10)) {
-        array = data[key].array;
-      }
-    }
-    console.log("array", array);
-    return array;
-  };
-
-  const handleFilters = (filters, category) => {
-    const newFilters = { ...Filters };
-
-    newFilters[category] = filters;
-
-    if (category === "price") {
-      let priceValues = handlePrice(filters);
-      newFilters[category] = priceValues;
-    }
-
-    console.log(newFilters);
-
-    showFilteredResults(newFilters);
-    setFilters(newFilters);
-  };
-
-  const updateSearchTerms = (newSearchTerm) => {
-    const variables = {
-      skip: 0,
-      limit: Limit,
-      filters: Filters,
-      searchTerm: newSearchTerm,
-    };
-
-    setSkip(0);
-    setSearchTerms(newSearchTerm);
-
-    getProducts(variables);
+  const prevSlide = () => {
+    const slides = document.querySelectorAll(".slide");
+    const current = document.querySelector(".current");
+    current.classList.remove("current");
+    slides[(curr - 1 + slides.length) % slides.length].classList.add("current");
+    curr = (curr - 1 + slides.length) % slides.length;
   };
 
   return (
-    <div style={{ width: "75%", margin: "3rem auto" }}>
-      <div style={{ textAlign: "center" }}>
-        <h2>
-          {" "}
-          Homestays <Icon type="home" />{" "}
-        </h2>
-      </div>
-
-      {/* Filter  */}
-
-      <Row gutter={[16, 16]}>
-        <Col lg={12} xs={24}>
-          <CheckBox
-            list={continents}
-            handleFilters={(filters) => handleFilters(filters, "continents")}
-          />
-        </Col>
-        <Col lg={12} xs={24}>
-          <RadioBox
-            list={price}
-            handleFilters={(filters) => handleFilters(filters, "price")}
-          />
-        </Col>
-      </Row>
-
-      {/* Search  */}
+    <div>
       <div
         style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          margin: "1rem auto",
+          width: "100%",
+          height: "100vh",
+          opacity: "0.7",
+          position: "absolute",
+          boxShadow:
+            "100px 150px 200px #000000 inset, -100px -100px 200px #000000 inset",
+          zIndex: "2",
         }}
-      >
-        <SearchFeature refreshFunction={updateSearchTerms} />
+      ></div>
+      {/* <img
+        style={{ zIndex: "1", width: "100%", height: "100vh" }}
+        src={image1}
+        alt=""
+      /> */}
+      <div className="slider">
+        <div className="slide current">
+          {/* <div className="content">
+            <h1>ONE</h1>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              Perferendis soluta quibusdam cupiditate sapiente nemo veniam.
+            </p>
+          </div> */}
+          <div className="heading">
+            <h1> Common Themes.... </h1>
+          </div>
+
+          <div className="content">
+            <ul>
+              <li>Connecting people and places</li>
+              <li>Leveraging natural and human resources</li>
+              <li>Reviving cultural heritage with innovation</li>
+              <li>Enriching personalized experiences</li>
+              <li>Developing a self sustainable business model</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="slide">
+          <div className="heading">
+            <h1>Our Mission</h1>
+          </div>
+          <div className="content">
+            <p>
+              <span style={{ fontSize: "3em" }}>
+                <span style={{ fontWeight: "bold" }}>heart & soul,</span> a
+                world outside the four walls <br />
+              </span>
+              <span>
+                collaborating with simplest and the best to create an experience
+                unfolding your nature and personality.
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <div className="slide">
+          <div className="heading">
+            <h1>Our Vision</h1>
+          </div>
+          <div className="content">
+            <p>
+              <span style={{ fontSize: "3em" }}>
+                <span style={{ fontWeight: "bold" }}>beyond</span> bed &
+                breakfast ..{" "}
+                <span style={{ fontWeight: "bold" }}>nature's window</span>{" "}
+                <br />
+              </span>
+              <span>
+                creating a reliable and sustainable ecosystem in remote areas
+                with eco-tourism at the centerstage
+              </span>
+            </p>
+          </div>
+        </div>
+        <div className="buttons">
+          <button onClick={prevSlide} id="prev">
+            <Icon type="arrow-left" />
+          </button>
+          <button onClick={nextSlide} id="next">
+            <Icon type="arrow-right" />
+          </button>
+        </div>
       </div>
-
-      {Products.length === 0 ? (
-        <div
-          style={{
-            display: "flex",
-            height: "300px",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <h2>No post yet...</h2>
-        </div>
-      ) : (
-        <div>
-          <Row gutter={[16, 16]}>{renderCards}</Row>
-        </div>
-      )}
-      <br />
-      <br />
-
-      {PostSize >= Limit && (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <button onClick={onLoadMore}>Load More</button>
-        </div>
-      )}
     </div>
   );
-}
+};
 
 export default LandingPage;

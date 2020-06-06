@@ -10,13 +10,14 @@ import UploadProductPage from "./views/UploadHomestayPage/UploadHomestayPage";
 import DetailProductPage from "./views/DetailProductPage/DetailProductPage";
 import CartPage from "./views/CartPage/CartPage";
 import HistoryPage from "./views/HistoryPage/HistoryPage";
+import NavBarTransparent from "./views/NavBarTransparent/NavBarTransparent";
 import HomestayPage from "./views/HomestayPage/HomestayPage";
 
 function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <NavBar />
-      <div style={{ paddingTop: "75px", minHeight: "calc(100vh - 80px)" }}>
+      <NavBarTransparent />
+      <div style={{ paddingTop: "0px", minHeight: "calc(100vh - 80px)" }}>
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null)} />
           <Route exact path="/login" component={Auth(LoginPage, false)} />

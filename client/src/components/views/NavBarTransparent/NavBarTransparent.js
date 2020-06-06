@@ -23,6 +23,7 @@ function NavBar() {
         position: "fixed",
         zIndex: 5,
         width: "100%",
+        background: "transparent",
       }}
     >
       <div className="menu__logo">
