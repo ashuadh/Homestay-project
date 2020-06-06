@@ -5,6 +5,7 @@ import HomestayImage from "./Sections/HomestayImage";
 import HomestayInfo from "./Sections/HomestayInfo";
 import { addToCart } from "../../../_actions/user_actions";
 import { useDispatch } from "react-redux";
+import NavBar from "../NavBar/NavBar";
 function DetailHomestayPage(props) {
   const dispatch = useDispatch();
   const homestayId = props.match.params.homestayId;
@@ -23,21 +24,29 @@ function DetailHomestayPage(props) {
   };
 
   return (
-    <div className="postPage" style={{ width: "100%", padding: "3rem 4rem" }}>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <h1>{Homestay.title}</h1>
+    <div>
+      <NavBar />
+      <div style={{ paddingTop: "75px", minHeight: "calc(100vh - 80px)" }}>
+        <div
+          className="postPage"
+          style={{ width: "100%", padding: "3rem 4rem" }}
+        >
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <h1>{Homestay.title}</h1>
+          </div>
+
+          <br />
+
+          <Row gutter={[16, 16]}>
+            <Col lg={12} xs={24}>
+              <HomestayImage detail={Homestay} />
+            </Col>
+            <Col lg={12} xs={24}>
+              <HomestayInfo addToCart={addToCartHandler} detail={Homestay} />
+            </Col>
+          </Row>
+        </div>
       </div>
-
-      <br />
-
-      <Row gutter={[16, 16]}>
-        <Col lg={12} xs={24}>
-          <HomestayImage detail={Homestay} />
-        </Col>
-        <Col lg={12} xs={24}>
-          <HomestayInfo addToCart={addToCartHandler} detail={Homestay} />
-        </Col>
-      </Row>
     </div>
   );
 }

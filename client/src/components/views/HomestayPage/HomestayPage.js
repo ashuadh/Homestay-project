@@ -6,6 +6,7 @@ import CheckBox from "./Sections/CheckBox";
 import RadioBox from "./Sections/RadioBox";
 import { rate, continents } from "./Sections/Datas";
 import SearchFeature from "./Sections/SearchFeature";
+import NavBar from "../NavBar/NavBar";
 
 const { Meta } = Card;
 
@@ -127,32 +128,35 @@ function LandingPage() {
   };
 
   return (
-    <div style={{ width: "75%", margin: "3rem auto" }}>
-      <div style={{ textAlign: "center" }}>
-        <h2>
-          {" "}
-          Homestays <Icon type="home" />{" "}
-        </h2>
-      </div>
-
-      {/* Filter  */}
-
-      <Row gutter={[16, 16]}>
-        <Col lg={12}>
-          <RadioBox
-            list={rate}
-            handleFilters={(filters) => handleFilters(filters, "rate")}
-          />
-        </Col>
-        <Col lg={12}>
-          <div style={{ margin: "1rem auto" }}>
-            <SearchFeature refreshFunction={updateSearchTerms} />
+    <div>
+      <NavBar />
+      <div style={{ paddingTop: "75px", minHeight: "calc(100vh - 80px)" }}>
+        <div style={{ width: "75%", margin: "3rem auto" }}>
+          <div style={{ textAlign: "center" }}>
+            <h2>
+              {" "}
+              Homestays <Icon type="home" />{" "}
+            </h2>
           </div>
-        </Col>
-      </Row>
 
-      {/* Search  */}
-      {/* <div
+          {/* Filter  */}
+
+          <Row gutter={[16, 16]}>
+            <Col lg={12}>
+              <RadioBox
+                list={rate}
+                handleFilters={(filters) => handleFilters(filters, "rate")}
+              />
+            </Col>
+            <Col lg={12}>
+              <div style={{ margin: "1rem auto" }}>
+                <SearchFeature refreshFunction={updateSearchTerms} />
+              </div>
+            </Col>
+          </Row>
+
+          {/* Search  */}
+          {/* <div
         style={{
           display: "flex",
           justifyContent: "flex-end",
@@ -162,27 +166,29 @@ function LandingPage() {
         <SearchFeature refreshFunction={updateSearchTerms} />
       </div> */}
 
-      {Homestays.length === 0 ? (
-        <div
-          style={{
-            height: "300px",
-            textAlign: "center",
-          }}
-        >
-          <h2 style={{ paddingTop: "150px" }}>No Homestays yet...</h2>
+          {Homestays.length === 0 ? (
+            <div
+              style={{
+                height: "300px",
+                textAlign: "center",
+              }}
+            >
+              <h2 style={{ paddingTop: "150px" }}>No Homestays yet...</h2>
+            </div>
+          ) : (
+            <div>
+              <Row gutter={[16, 16]}>{renderCards}</Row>
+            </div>
+          )}
+          <br />
+          <br />
+          {NumHomestaysRetrieved >= Limit && (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <button onClick={onLoadMore}>Load More</button>
+            </div>
+          )}
         </div>
-      ) : (
-        <div>
-          <Row gutter={[16, 16]}>{renderCards}</Row>
-        </div>
-      )}
-      <br />
-      <br />
-      {NumHomestaysRetrieved >= Limit && (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <button onClick={onLoadMore}>Load More</button>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

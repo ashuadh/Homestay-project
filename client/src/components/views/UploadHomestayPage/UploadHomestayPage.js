@@ -12,6 +12,7 @@ import {
 } from "antd";
 import FileUpload from "../../utils/FileUpload";
 import Axios from "axios";
+import NavBar from "../NavBar/NavBar";
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -190,161 +191,172 @@ function UploadProductPage(props) {
   };
 
   return (
-    <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
-      <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <Title level={2}> List your Homestay</Title>
+    <div>
+      <NavBar />
+      <div style={{ paddingTop: "75px", minHeight: "calc(100vh - 80px)" }}>
+        <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+            <Title level={2}> List your Homestay</Title>
+          </div>
+
+          <Form onSubmit={onSubmit}>
+            <label>Title</label>
+            <Input onChange={onTitleChange} value={TitleValue} />
+
+            <br />
+            <br />
+
+            <label>About the Homestay</label>
+            <TextArea
+              onChange={onAboutHomestayChange}
+              value={AboutHomestayValue}
+            />
+
+            <br />
+            <br />
+
+            {/* Facilites */}
+
+            <label>Address </label>
+            <TextArea onChange={onAddressChange} value={AddressValue} />
+
+            <br />
+            <br />
+
+            <Row>
+              <Col span={10}>
+                <label>
+                  City <br />{" "}
+                </label>
+                <Input
+                  style={{ width: "70%" }}
+                  onChange={onCityChange}
+                  value={CityValue}
+                />
+              </Col>
+
+              <Col span={10}>
+                <label>
+                  {" "}
+                  State / Union Territory <br />{" "}
+                </label>
+                <select onChange={onStatesSelectChange} value={StateValue}>
+                  {States.map((item) => (
+                    <option key={item.key} value={item.key}>
+                      {item.value}{" "}
+                    </option>
+                  ))}
+                </select>
+              </Col>
+
+              <Col span={4}>
+                <label>
+                  Pin Code <br />
+                </label>
+                <Input onChange={onPinChange} value={PinValue} />
+              </Col>
+            </Row>
+
+            <br />
+            <br />
+
+            <label>About the Locality</label>
+            <TextArea
+              onChange={onAboutLocalityChange}
+              value={AboutLocalityValue}
+            />
+
+            <br />
+            <br />
+
+            {/* Local facilities */}
+            {/* Map if possible */}
+
+            <Row>
+              <Col span={6}>
+                <label>
+                  No: of bedrooms <br />
+                </label>
+
+                <select
+                  style={{ width: "70%" }}
+                  onChange={onBedroomChange}
+                  value={BedroomValue}
+                >
+                  {Nums.map((item) => (
+                    <option key={item.key} value={item.key}>
+                      {item.value}{" "}
+                    </option>
+                  ))}
+                </select>
+              </Col>
+
+              <Col span={6}>
+                <label>
+                  No: of bathrooms <br />
+                </label>
+
+                <select
+                  style={{ width: "70%" }}
+                  onChange={onBathroomChange}
+                  value={BathroomValue}
+                >
+                  {Nums.map((item) => (
+                    <option key={item.key} value={item.key}>
+                      {item.value}{" "}
+                    </option>
+                  ))}
+                </select>
+              </Col>
+
+              <Col span={7}>
+                <label>Max Number of Guests</label>
+                <Input
+                  style={{ width: "72%" }}
+                  onChange={onMaxGuestsChange}
+                  value={MaxGuestsValue}
+                  type="number"
+                />
+              </Col>
+
+              <Col span={5}>
+                <label>Rate / night / guest(&#8377;)</label>
+                <Input
+                  style={{ width: "100%" }}
+                  onChange={onRateChange}
+                  value={RateValue}
+                  type="number"
+                />
+              </Col>
+            </Row>
+
+            <br />
+            <br />
+
+            <label>Host Photos</label>
+            <FileUpload refreshFunction={updateHostImages} />
+            <br />
+            <br />
+            <label>Homestay Photos</label>
+            <FileUpload refreshFunction={updateRoomImages} />
+            <br />
+            <br />
+            <label>Locality Photos</label>
+            <FileUpload refreshFunction={updateLocalityImages} />
+            <br />
+            <br />
+            <br />
+            <br />
+            <Row>
+              <Col span={4} offset={10}>
+                <Button style={{ width: "100%" }} onClick={onSubmit}>
+                  Submit
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        </div>
       </div>
-
-      <Form onSubmit={onSubmit}>
-        <label>Title</label>
-        <Input onChange={onTitleChange} value={TitleValue} />
-
-        <br />
-        <br />
-
-        <label>About the Homestay</label>
-        <TextArea onChange={onAboutHomestayChange} value={AboutHomestayValue} />
-
-        <br />
-        <br />
-
-        {/* Facilites */}
-
-        <label>Address </label>
-        <TextArea onChange={onAddressChange} value={AddressValue} />
-
-        <br />
-        <br />
-
-        <Row>
-          <Col span={10}>
-            <label>
-              City <br />{" "}
-            </label>
-            <Input
-              style={{ width: "70%" }}
-              onChange={onCityChange}
-              value={CityValue}
-            />
-          </Col>
-
-          <Col span={10}>
-            <label>
-              {" "}
-              State / Union Territory <br />{" "}
-            </label>
-            <select onChange={onStatesSelectChange} value={StateValue}>
-              {States.map((item) => (
-                <option key={item.key} value={item.key}>
-                  {item.value}{" "}
-                </option>
-              ))}
-            </select>
-          </Col>
-
-          <Col span={4}>
-            <label>
-              Pin Code <br />
-            </label>
-            <Input onChange={onPinChange} value={PinValue} />
-          </Col>
-        </Row>
-
-        <br />
-        <br />
-
-        <label>About the Locality</label>
-        <TextArea onChange={onAboutLocalityChange} value={AboutLocalityValue} />
-
-        <br />
-        <br />
-
-        {/* Local facilities */}
-        {/* Map if possible */}
-
-        <Row>
-          <Col span={6}>
-            <label>
-              No: of bedrooms <br />
-            </label>
-
-            <select
-              style={{ width: "70%" }}
-              onChange={onBedroomChange}
-              value={BedroomValue}
-            >
-              {Nums.map((item) => (
-                <option key={item.key} value={item.key}>
-                  {item.value}{" "}
-                </option>
-              ))}
-            </select>
-          </Col>
-
-          <Col span={6}>
-            <label>
-              No: of bathrooms <br />
-            </label>
-
-            <select
-              style={{ width: "70%" }}
-              onChange={onBathroomChange}
-              value={BathroomValue}
-            >
-              {Nums.map((item) => (
-                <option key={item.key} value={item.key}>
-                  {item.value}{" "}
-                </option>
-              ))}
-            </select>
-          </Col>
-
-          <Col span={7}>
-            <label>Max Number of Guests</label>
-            <Input
-              style={{ width: "72%" }}
-              onChange={onMaxGuestsChange}
-              value={MaxGuestsValue}
-              type="number"
-            />
-          </Col>
-
-          <Col span={5}>
-            <label>Rate / night / guest(&#8377;)</label>
-            <Input
-              style={{ width: "100%" }}
-              onChange={onRateChange}
-              value={RateValue}
-              type="number"
-            />
-          </Col>
-        </Row>
-
-        <br />
-        <br />
-
-        <label>Host Photos</label>
-        <FileUpload refreshFunction={updateHostImages} />
-        <br />
-        <br />
-        <label>Homestay Photos</label>
-        <FileUpload refreshFunction={updateRoomImages} />
-        <br />
-        <br />
-        <label>Locality Photos</label>
-        <FileUpload refreshFunction={updateLocalityImages} />
-        <br />
-        <br />
-        <br />
-        <br />
-        <Row>
-          <Col span={4} offset={10}>
-            <Button style={{ width: "100%" }} onClick={onSubmit}>
-              Submit
-            </Button>
-          </Col>
-        </Row>
-      </Form>
     </div>
   );
 }

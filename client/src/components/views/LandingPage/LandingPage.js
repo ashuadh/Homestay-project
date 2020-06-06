@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Icon } from "antd";
+import NavBarTransparent from "../NavBarTransparent/NavBarTransparent";
 import "./LandingPage.css";
 
 const LandingPage = () => {
@@ -30,6 +31,7 @@ const LandingPage = () => {
 
   return (
     <div>
+      <NavBarTransparent />
       <div
         style={{
           width: "100%",

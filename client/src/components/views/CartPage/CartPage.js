@@ -9,6 +9,7 @@ import UserCardBlock from "./Sections/UserCardBlock";
 import { Result, Empty } from "antd";
 import Axios from "axios";
 import Paypal from "../../utils/Paypal";
+import NavBar from "../NavBar/NavBar";
 function CartPage(props) {
   const dispatch = useDispatch();
   const [Total, setTotal] = useState(0);
@@ -77,46 +78,51 @@ function CartPage(props) {
   };
 
   return (
-    <div style={{ width: "85%", margin: "3rem auto" }}>
-      <h1>My Cart</h1>
-      <div>
-        <UserCardBlock
-          homestays={props.user.cartDetail}
-          removeItem={removeFromCart}
-        />
+    <div>
+      <NavBar />
+      <div style={{ paddingTop: "75px", minHeight: "calc(100vh - 80px)" }}>
+        <div style={{ width: "85%", margin: "3rem auto" }}>
+          <h1>My Cart</h1>
+          <div>
+            <UserCardBlock
+              homestays={props.user.cartDetail}
+              removeItem={removeFromCart}
+            />
 
-        {ShowTotal ? (
-          <div style={{ marginTop: "3rem" }}>
-            <h2>Total amount: ${Total} </h2>
+            {ShowTotal ? (
+              <div style={{ marginTop: "3rem" }}>
+                <h2>Total amount: ${Total} </h2>
+              </div>
+            ) : ShowSuccess ? (
+              <Result status="success" title="Successfully Purchased Items" />
+            ) : (
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
+              >
+                <br />
+                <Empty description={false} />
+                <p>No Items In the Cart</p>
+              </div>
+            )}
           </div>
-        ) : ShowSuccess ? (
-          <Result status="success" title="Successfully Purchased Items" />
-        ) : (
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <br />
-            <Empty description={false} />
-            <p>No Items In the Cart</p>
-          </div>
-        )}
+
+          {/* Paypal Button */}
+
+          {ShowTotal && (
+            <Paypal
+              toPay={Total}
+              onSuccess={transactionSuccess}
+              transactionError={transactionError}
+              transactionCanceled={transactionCanceled}
+            />
+          )}
+        </div>
       </div>
-
-      {/* Paypal Button */}
-
-      {ShowTotal && (
-        <Paypal
-          toPay={Total}
-          onSuccess={transactionSuccess}
-          transactionError={transactionError}
-          transactionCanceled={transactionCanceled}
-        />
-      )}
     </div>
   );
 }

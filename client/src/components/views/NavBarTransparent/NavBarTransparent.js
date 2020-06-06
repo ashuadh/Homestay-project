@@ -18,7 +18,7 @@ function NavBar() {
 
   return (
     <nav
-      className="menu"
+      className="menuTransparent"
       style={{
         position: "fixed",
         zIndex: 5,
@@ -35,7 +35,7 @@ function NavBar() {
           />
         </span>
       </div>
-      <div className="menu__container">
+      <div className="menu__container_transparent">
         {/* <div className="menu_left">
           <LeftMenu mode="horizontal" />
         </div> */}
