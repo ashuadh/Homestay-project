@@ -51,7 +51,7 @@ function RightMenu(props) {
           <a href="/homestay/upload">Upload</a>
         </Menu.Item>
 
-        <Menu.Item key="cart" style={{ paddingBottom: 3 }}>
+        {/* <Menu.Item key="cart" style={{ paddingBottom: 3 }}>
           <Badge count={user.userData && user.userData.cart.length}>
             <a href="/user/cart" style={{ marginRight: -22, color: "#ffffff" }}>
               <Icon
@@ -60,7 +60,7 @@ function RightMenu(props) {
               />
             </a>
           </Badge>
-        </Menu.Item>
+        </Menu.Item> */}
 
         <Menu.Item key="logout">
           <a onClick={logoutHandler}>Logout</a>

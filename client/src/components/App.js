@@ -6,7 +6,7 @@ import LoginPage from "./views/LoginPage/LoginPage.js";
 import RegisterPage from "./views/RegisterPage/RegisterPage.js";
 import Footer from "./views/Footer/Footer";
 import UploadProductPage from "./views/UploadHomestayPage/UploadHomestayPage";
-import DetailProductPage from "./views/DetailProductPage/DetailProductPage";
+import DetailHomestayPage from "./views/DetailHomestayPage/DetailHomestayPage";
 import CartPage from "./views/CartPage/CartPage";
 import HistoryPage from "./views/HistoryPage/HistoryPage";
 import HomestayPage from "./views/HomestayPage/HomestayPage";
@@ -29,7 +29,7 @@ function App() {
           <Route
             exact
             path="/homestay/:homestayId"
-            component={Auth(DetailProductPage, null)}
+            component={Auth(DetailHomestayPage, null)}
           />
           <Route exact path="/user/cart" component={Auth(CartPage, true)} />
           <Route exact path="/history" component={Auth(HistoryPage, true)} />

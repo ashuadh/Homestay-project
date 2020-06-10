@@ -61,18 +61,50 @@ function LandingPage() {
 
   const renderCards = Homestays.map((homestay, index) => {
     return (
-      <Col lg={6} md={8} xs={24}>
-        <Card
-          hoverable={true}
-          cover={
+      // <Col lg={6} md={8} xs={24}>
+      //   <Card
+      //     hoverable={true}
+      //     cover={
+      //       <a href={`/homestay/${homestay._id}`}>
+      //         {" "}
+      //         <ImageSlider images={homestay.roomImages} />{" "}
+      //       </a>
+      //     }
+      //   >
+      //     <Meta title={homestay.title} description={`\u20B9${homestay.rate}`} />
+      //   </Card>
+      // </Col>
+
+      <Col lg={12} xs={24}>
+        <div
+          style={{
+            height: "25vh",
+            display: "flex",
+            flexDirection: "row",
+            position: "relative",
+          }}
+        >
+          <div style={{ width: "40%" }}>
             <a href={`/homestay/${homestay._id}`}>
               {" "}
               <ImageSlider images={homestay.roomImages} />{" "}
             </a>
-          }
-        >
-          <Meta title={homestay.title} description={`\u20B9${homestay.rate}`} />
-        </Card>
+          </div>
+          <div style={{ width: "60%", padding: "1.5rem" }}>
+            <h1>{homestay.title}</h1>
+            <p
+              style={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                WebkitBoxOrient: "vertical",
+                display: "-webkit-box",
+                WebkitLineClamp: "3",
+              }}
+            >
+              {homestay.aboutHomestay}
+            </p>
+          </div>
+        </div>
       </Col>
     );
   });
@@ -130,30 +162,55 @@ function LandingPage() {
   return (
     <div>
       <NavBar />
-      <div style={{ paddingTop: "75px", minHeight: "calc(100vh - 80px)" }}>
-        <div style={{ width: "75%", margin: "3rem auto" }}>
-          <div style={{ textAlign: "center" }}>
-            <h2>
-              {" "}
-              Homestays <Icon type="home" />{" "}
-            </h2>
-          </div>
+      <div
+        style={{
+          paddingTop: "150px",
+          minHeight: "calc(100vh - 80px)",
+          backgroundColor: "#f0f9ff",
+        }}
+      >
+        <div style={{ width: "100%" }}>
+          <div
+            style={{
+              backgroundColor: "#d2d6d9",
+              padding: "1vh 2vw",
+              marginBottom: "3vh",
+            }}
+          >
+            <Row gutter={[16, 16]}>
+              <Col span={6}>
+                <h2 style={{ fontSize: "2rem", marginBottom: "0" }}>
+                  {" "}
+                  Homestays{" "}
+                </h2>
+              </Col>
+              <Col span={4} offset={10}>
+                <RadioBox
+                  list={rate}
+                  handleFilters={(filters) => handleFilters(filters, "rate")}
+                />
+              </Col>
 
-          {/* Filter  */}
-
-          <Row gutter={[16, 16]}>
-            <Col lg={12}>
-              <RadioBox
-                list={rate}
-                handleFilters={(filters) => handleFilters(filters, "rate")}
-              />
-            </Col>
-            <Col lg={12}>
-              <div style={{ margin: "1rem auto" }}>
+              <Col span={4}>
+                <div style={{ margin: "1rem auto" }}></div>
                 <SearchFeature refreshFunction={updateSearchTerms} />
-              </div>
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+
+            {/* <Row gutter={[16, 16]}>
+              <Col lg={6}>
+                <RadioBox
+                  list={rate}
+                  handleFilters={(filters) => handleFilters(filters, "rate")}
+                />
+              </Col>
+              <Col lg={6}>
+                <div style={{ margin: "1rem auto" }}>
+                  <SearchFeature refreshFunction={updateSearchTerms} />
+                </div>
+              </Col>
+            </Row> */}
+          </div>
 
           {/* Search  */}
           {/* <div
@@ -176,8 +233,8 @@ function LandingPage() {
               <h2 style={{ paddingTop: "150px" }}>No Homestays yet...</h2>
             </div>
           ) : (
-            <div>
-              <Row gutter={[16, 16]}>{renderCards}</Row>
+            <div style={{ padding: "1vh 2vw" }}>
+              <Row gutter={[0, 0]}>{renderCards}</Row>
             </div>
           )}
           <br />

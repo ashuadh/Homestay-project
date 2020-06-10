@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LeftMenu from "./Sections/LeftMenu";
 import RightMenu from "./Sections/RightMenu";
 import { Drawer, Button, Icon } from "antd";
-import logo from "../../../assets/img/logo-hs.jpg";
+import logo from "../../../assets/img/heart and soul.png";
 import "./Sections/Navbar.css";
 
 function NavBar() {
@@ -20,7 +20,7 @@ function NavBar() {
     <nav
       className="menuTransparent"
       style={{
-        position: "fixed",
+        position: "absolute",
         zIndex: 5,
         width: "100%",
         background: "transparent",
@@ -29,7 +29,7 @@ function NavBar() {
       <div className="menu__logo">
         <span>
           <img
-            style={{ height: "67px", marginLeft: "10px" }}
+            style={{ height: "300px", marginLeft: "10px" }}
             src={logo}
             alt=""
           />
