@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ImageGallery from "react-image-gallery";
+import "./HomestayImages.css";
 
 function HomestayImage(props) {
   const [Images, setImages] = useState([]);

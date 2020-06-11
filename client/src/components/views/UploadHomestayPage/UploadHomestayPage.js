@@ -166,7 +166,7 @@ function UploadProductPage(props) {
     }
 
     const variables = {
-      writer: props.user.userData._id,
+      host: props.user.userData._id,
       title: TitleValue,
       aboutHomestay: AboutHomestayValue,
       address: AddressValue,
@@ -193,7 +193,7 @@ function UploadProductPage(props) {
   return (
     <div>
       <NavBar />
-      <div style={{ paddingTop: "75px", minHeight: "calc(100vh - 80px)" }}>
+      <div style={{ paddingTop: "150px", minHeight: "calc(100vh - 80px)" }}>
         <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
           <div style={{ textAlign: "center", marginBottom: "2rem" }}>
             <Title level={2}> List your Homestay</Title>

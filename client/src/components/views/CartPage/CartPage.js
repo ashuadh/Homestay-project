@@ -80,7 +80,7 @@ function CartPage(props) {
   return (
     <div>
       <NavBar />
-      <div style={{ paddingTop: "75px", minHeight: "calc(100vh - 80px)" }}>
+      <div style={{ paddingTop: "150px", minHeight: "calc(100vh - 80px)" }}>
         <div style={{ width: "85%", margin: "3rem auto" }}>
           <h1>My Cart</h1>
           <div>

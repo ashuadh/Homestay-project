@@ -57,7 +57,7 @@ const LandingPage = () => {
           position: "absolute",
           zIndex: "10",
           top: "250px",
-          left: "11.5%",
+          left: "7%",
         }}
       >
         <h1 style={{ color: "white" }}>Heart and soul</h1>

@@ -47,7 +47,7 @@ function NavBar() {
               fontWeight: "bold",
             }}
           >
-            Hearts and Souls
+            Heart and Soul
           </h1>
         </div>
       </div>

@@ -26,7 +26,7 @@ function DetailHomestayPage(props) {
   return (
     <div>
       <NavBar />
-      <div style={{ paddingTop: "75px", minHeight: "calc(100vh - 80px)" }}>
+      <div style={{ paddingTop: "150px", minHeight: "calc(100vh - 80px)" }}>
         <div
           className="postPage"
           style={{ width: "100%", padding: "3rem 4rem" }}
@@ -39,10 +39,12 @@ function DetailHomestayPage(props) {
 
           <Row gutter={[16, 16]}>
             <Col lg={12} xs={24}>
-              <HomestayImage detail={Homestay} />
+              <HomestayInfo addToCart={addToCartHandler} detail={Homestay} />
             </Col>
             <Col lg={12} xs={24}>
-              <HomestayInfo addToCart={addToCartHandler} detail={Homestay} />
+              <div>
+                <HomestayImage detail={Homestay} />
+              </div>
             </Col>
           </Row>
         </div>

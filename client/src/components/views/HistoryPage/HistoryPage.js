@@ -5,7 +5,7 @@ function HistoryPage(props) {
   return (
     <div>
       <NavBar />
-      <div style={{ paddingTop: "75px", minHeight: "calc(100vh - 80px)" }}>
+      <div style={{ paddingTop: "150px", minHeight: "calc(100vh - 80px)" }}>
         <div style={{ width: "80%", margin: "3rem auto" }}>
           <div style={{ textAlign: "center" }}>
             <h1>History</h1>
@@ -16,8 +16,8 @@ function HistoryPage(props) {
             <thead>
               <tr>
                 <th>Payment Id</th>
-                <th>Price</th>
-                <th>Quantity</th>
+                <th>Total Amount</th>
+                <th>Duration of Stay</th>
                 <th>Date of Purchase</th>
               </tr>
             </thead>

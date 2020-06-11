@@ -78,10 +78,11 @@ function LandingPage() {
       <Col lg={12} xs={24}>
         <div
           style={{
-            height: "25vh",
+            height: "20vh",
             display: "flex",
             flexDirection: "row",
             position: "relative",
+            margin: "0 1vw 5vh 1vw",
           }}
         >
           <div style={{ width: "40%" }}>
@@ -91,7 +92,19 @@ function LandingPage() {
             </a>
           </div>
           <div style={{ width: "60%", padding: "1.5rem" }}>
-            <h1>{homestay.title}</h1>
+            <Row>
+              <Col lg={16} md={24}>
+                <h2>{homestay.title}</h2>
+              </Col>
+              <Col lg={8} md={24}>
+                <div>
+                  <h2
+                    style={{ display: "inline" }}
+                  >{`\u20b9${homestay.rate}`}</h2>
+                  <h3 style={{ display: "inline" }}> /night/guest</h3>
+                </div>
+              </Col>
+            </Row>
             <p
               style={{
                 overflow: "hidden",
@@ -102,6 +115,9 @@ function LandingPage() {
               }}
             >
               {homestay.aboutHomestay}
+            </p>
+            <p>
+              <i class="fa fa-map-marker"></i> {homestay.address}
             </p>
           </div>
         </div>
@@ -237,11 +253,17 @@ function LandingPage() {
               <Row gutter={[0, 0]}>{renderCards}</Row>
             </div>
           )}
-          <br />
-          <br />
           {NumHomestaysRetrieved >= Limit && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <button onClick={onLoadMore}>Load More</button>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                backgroundColor: "#f0f9ff",
+              }}
+            >
+              <button style={{ marginBottom: "3vh" }} onClick={onLoadMore}>
+                Load More
+              </button>
             </div>
           )}
         </div>
